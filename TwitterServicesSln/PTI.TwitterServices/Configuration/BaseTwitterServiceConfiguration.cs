@@ -35,5 +35,13 @@ namespace PTI.TwitterServices.Configuration
         /// Id of the user to log in with/identify as
         /// </summary>
         public ulong UserId { get; set; }
+        /// <summary>
+        /// Maximum number of times an operation is going to be retried
+        /// </summary>
+        public int MaxRetryCount { get; set; } = 3;
+        /// <summary>
+        /// Indicated if failed operations should be retried
+        /// </summary>
+        public bool RetryOperationOnFailure { get; set; } = true;
     }
 }

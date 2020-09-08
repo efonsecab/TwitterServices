@@ -39,9 +39,64 @@
             Id of the user to log in with/identify as
             </summary>
         </member>
+        <member name="P:PTI.TwitterServices.Configuration.BaseTwitterServiceConfiguration.MaxRetryCount">
+            <summary>
+            Maximum number of times an operation is going to be retried
+            </summary>
+        </member>
+        <member name="P:PTI.TwitterServices.Configuration.BaseTwitterServiceConfiguration.RetryOperationOnFailure">
+            <summary>
+            Indicated if failed operations should be retried
+            </summary>
+        </member>
+        <member name="T:PTI.TwitterServices.Enums.PossibleFakeReason">
+            <summary>
+            Reasons why an account was marked as a possible fake
+            </summary>
+        </member>
+        <member name="F:PTI.TwitterServices.Enums.PossibleFakeReason.EmptyBioDescription">
+            <summary>
+            User has no bio description set
+            </summary>
+        </member>
+        <member name="F:PTI.TwitterServices.Enums.PossibleFakeReason.LongTimeWithoutOriginalTweets">
+            <summary>
+            User has not had original tweets for a long time
+            </summary>
+        </member>
+        <member name="F:PTI.TwitterServices.Enums.PossibleFakeReason.EmptyProfileImage">
+            <summary>
+            User does not have a profile image set
+            </summary>
+        </member>
+        <member name="F:PTI.TwitterServices.Enums.PossibleFakeReason.InvalidFollowersOffset">
+            <summary>
+            Following-Followers Offset is invalid
+            </summary>
+        </member>
+        <member name="T:PTI.TwitterServices.Models.PossibleFakeUser">
+            <summary>
+            Combines the User information with the found possible fake reasons
+            </summary>
+        </member>
+        <member name="P:PTI.TwitterServices.Models.PossibleFakeUser.User">
+            <summary>
+            User information
+            </summary>
+        </member>
+        <member name="P:PTI.TwitterServices.Models.PossibleFakeUser.PossibleFakeReasons">
+            <summary>
+            Reasons why the user was identified as a possible fake
+            </summary>
+        </member>
         <member name="T:PTI.TwitterServices.Services.BaseTwitterService">
             <summary>
             Service containing the basic Twitter functionality
+            </summary>
+        </member>
+        <member name="P:PTI.TwitterServices.Services.BaseTwitterService.TwitterContext">
+            <summary>
+            Twitter connection context
             </summary>
         </member>
         <member name="M:PTI.TwitterServices.Services.BaseTwitterService.#ctor(PTI.TwitterServices.Configuration.BaseTwitterServiceConfiguration,Microsoft.Extensions.Logging.ILogger)">
@@ -60,13 +115,14 @@
             <param name="sinceTweetId">Tweets it to start from</param>
             <returns></returns>
         </member>
-        <member name="M:PTI.TwitterServices.Services.BaseTwitterService.GetTweetsByUsernameAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.UInt64})">
+        <member name="M:PTI.TwitterServices.Services.BaseTwitterService.GetTweetsByUsernameAsync(System.String,System.Int32,System.UInt64,System.Boolean)">
             <summary>
             Retrieves a list of the latest tweets for the specified user id
             </summary>
             <param name="username">username to retrieve tweets from</param>
             <param name="maxTweets">Maximum number of items to retrieve. Default is 10</param>
             <param name="sinceTweetId">Tweets it to start from</param>
+            <param name="isRetweeted"></param>
             <returns></returns>
         </member>
         <member name="M:PTI.TwitterServices.Services.BaseTwitterService.GetUserInfoByUsernameAsync(System.String)">
@@ -74,6 +130,41 @@
             Retrieves the information for a specified username
             </summary>
             <param name="username"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PTI.TwitterServices.Services.BaseTwitterService.GetUserFollowersByUsernameAsync(System.String,System.Int32,System.Nullable{System.Int64})">
+            <summary>
+            Retrieves the followers for a specified user
+            </summary>
+            <param name="username"></param>
+            <param name="maxFollowers"></param>
+            <param name="cursor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PTI.TwitterServices.Services.BaseTwitterService.EvaluateIfRateLimitExceededAsync">
+            <summary>
+            Evaluates if Rate Limit has been excedded and waits the specified time by twitter api
+            </summary>
+        </member>
+        <member name="T:PTI.TwitterServices.Services.FakeFollowersTwitterService">
+            <summary>
+            Service to help find possible Twitter fake followers
+            </summary>
+        </member>
+        <member name="M:PTI.TwitterServices.Services.FakeFollowersTwitterService.#ctor(PTI.TwitterServices.Services.BaseTwitterService,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Default service constructor
+            </summary>
+            <param name="baseTwitterService"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:PTI.TwitterServices.Services.FakeFollowersTwitterService.GetAllPossibleFakeFollowersForUsernameAsync(System.String,System.Action{LinqToTwitter.User})">
+            <summary>
+            Retrieve a list of all possible fake followers for a given username
+            </summary>
+            <param name="username"></param>
+            <param name="onNewPossibleFakeFollowedDetectedAction">Action to be executed when a new possible fake has been found.
+            Used so that consumer does not have to wait for the whole process to finish</param>
             <returns></returns>
         </member>
     </members>
