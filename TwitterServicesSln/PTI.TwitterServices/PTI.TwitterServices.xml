@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PTI.TwitterServices</name>
+    </assembly>
+    <members>
+        <member name="T:PTI.TwitterServices.Configuration.BaseTwitterServiceConfiguration">
+            <summary>
+            Configuration for the BaseTwitterService
+            </summary>
+        </member>
+        <member name="P:PTI.TwitterServices.Configuration.BaseTwitterServiceConfiguration.AccessToken">
+            <summary>
+            Twitter app Access Token
+            </summary>
+        </member>
+        <member name="P:PTI.TwitterServices.Configuration.BaseTwitterServiceConfiguration.AccessTokenSecret">
+            <summary>
+            Twitter App Access Token Secret
+            </summary>
+        </member>
+        <member name="P:PTI.TwitterServices.Configuration.BaseTwitterServiceConfiguration.ConsumerKey">
+            <summary>
+            Twitter App Consumer Key
+            </summary>
+        </member>
+        <member name="P:PTI.TwitterServices.Configuration.BaseTwitterServiceConfiguration.ConsumerSecret">
+            <summary>
+            Twitter App Consumer Secret
+            </summary>
+        </member>
+        <member name="P:PTI.TwitterServices.Configuration.BaseTwitterServiceConfiguration.ScreenName">
+            <summary>
+            Screen name of the user to log in with/identify as
+            </summary>
+        </member>
+        <member name="P:PTI.TwitterServices.Configuration.BaseTwitterServiceConfiguration.UserId">
+            <summary>
+            Id of the user to log in with/identify as
+            </summary>
+        </member>
+        <member name="T:PTI.TwitterServices.Services.BaseTwitterService">
+            <summary>
+            Service containing the basic Twitter functionality
+            </summary>
+        </member>
+        <member name="M:PTI.TwitterServices.Services.BaseTwitterService.#ctor(PTI.TwitterServices.Configuration.BaseTwitterServiceConfiguration,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Default service constructor
+            </summary>
+            <param name="baseTwitterServiceConfiguration">Base Twitter Configuration</param>
+            <param name="logger">Logger</param>
+        </member>
+        <member name="M:PTI.TwitterServices.Services.BaseTwitterService.GetTweetsByUserIdAsync(System.UInt64,System.Nullable{System.Int32},System.Nullable{System.UInt64})">
+            <summary>
+            Retrieves a list of the latest tweets for the specified user id
+            </summary>
+            <param name="userId">Id of the user to retrieve tweets from</param>
+            <param name="maxTweets">Maximum number of items to retrieve. Default is 10</param>
+            <param name="sinceTweetId">Tweets it to start from</param>
+            <returns></returns>
+        </member>
+        <member name="M:PTI.TwitterServices.Services.BaseTwitterService.GetTweetsByUsernameAsync(System.String,System.Nullable{System.Int32},System.Nullable{System.UInt64})">
+            <summary>
+            Retrieves a list of the latest tweets for the specified user id
+            </summary>
+            <param name="username">username to retrieve tweets from</param>
+            <param name="maxTweets">Maximum number of items to retrieve. Default is 10</param>
+            <param name="sinceTweetId">Tweets it to start from</param>
+            <returns></returns>
+        </member>
+        <member name="M:PTI.TwitterServices.Services.BaseTwitterService.GetUserInfoByUsernameAsync(System.String)">
+            <summary>
+            Retrieves the information for a specified username
+            </summary>
+            <param name="username"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
