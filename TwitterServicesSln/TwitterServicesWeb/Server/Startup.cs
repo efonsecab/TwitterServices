@@ -6,6 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using PTI.TwitterServices.Configuration;
+using PTI.TwitterServices.Services;
+using Microsoft.Extensions.Logging;
+using TwitterServicesWeb.Server.BackgroundServices;
 
 namespace TwitterServicesWeb.Server
 {
@@ -22,9 +26,19 @@ namespace TwitterServicesWeb.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddMemoryCache();
+            services.AddLogging();
+            services.AddTransient<ILogger, Logger<BaseTwitterService>>();
+            services.AddTransient<ILogger, Logger<FakeFollowersTwitterService>>();
+            services.AddTransient<ILogger, Logger<TwitterBackgroundService>>();
+            var baseTwitterServiceConfiguration = 
+                Configuration.GetSection("BaseTwitterServiceConfiguration").Get<BaseTwitterServiceConfiguration>();
+            services.AddSingleton<BaseTwitterServiceConfiguration>(baseTwitterServiceConfiguration);
+            services.AddTransient<BaseTwitterService>();
+            services.AddTransient<FakeFollowersTwitterService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddHostedService<BackgroundServices.TwitterBackgroundService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

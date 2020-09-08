@@ -1,0 +1,25 @@
+﻿@page "/PossibleFakeFollowers"
+<h2>Possible Fake Followers</h2>
+@if (this.FollowersList != null && this.FollowersList.Count > 0)
+{
+    <div class="container-fluid">
+        @foreach (var singleFollower in this.FollowersList)
+        {
+            <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                <div class="card-header">@singleFollower.Username</div>
+                <div class="card-body">
+                    <h5 class="card-title">Reasons Found</h5>
+                    <p class="card-text">
+                        <ul>
+                            @foreach (var singleReason in singleFollower.Reasons)
+                            {
+                                <li class="list-group-item-secondary">@singleReason</li>
+                            }
+                        </ul>
+
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+}

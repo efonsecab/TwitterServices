@@ -158,7 +158,7 @@
             <param name="baseTwitterService"></param>
             <param name="logger"></param>
         </member>
-        <member name="M:PTI.TwitterServices.Services.FakeFollowersTwitterService.GetAllPossibleFakeFollowersForUsernameAsync(System.String,System.Action{LinqToTwitter.User})">
+        <member name="M:PTI.TwitterServices.Services.FakeFollowersTwitterService.GetAllPossibleFakeFollowersForUsernameAsync(System.String,System.Action{PTI.TwitterServices.Models.PossibleFakeUser})">
             <summary>
             Retrieve a list of all possible fake followers for a given username
             </summary>

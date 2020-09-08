@@ -92,6 +92,7 @@ namespace PTI.TwitterServices.Services
             {
                 try
                 {
+                    this.Logger.LogInformation($"Scanning message for: {username}. Current Retries: {currentRetries}");
                     lstTweets = await this.TwitterContext.Status.Where(p =>
                     p.Type == StatusType.User &&
                     p.ScreenName == username &&
@@ -159,6 +160,7 @@ namespace PTI.TwitterServices.Services
             {
                 try
                 {
+                    this.Logger?.LogInformation($"Scanning followers for: {username}. Cursor: {cursor}. Current Retries: {currentRetries}");
                     await this.EvaluateIfRateLimitExceededAsync();
                     var followersQuery = this.TwitterContext.Friendship.Where(p =>
                     p.Type == FriendshipType.FollowersList &&
@@ -201,7 +203,9 @@ namespace PTI.TwitterServices.Services
                     iMillisecondsToWait = 30 * 1000; //30 seconds
                 }
                 var totalMinutes = TimeSpan.FromMilliseconds(iMillisecondsToWait).TotalMinutes;
-                Debug.WriteLine($"Waiting for: {totalMinutes} minutes");
+                var resumeTime = DateTime.Now.AddMinutes(totalMinutes);
+                this.Logger?.LogInformation($"Reached Twitters APIs Limits. Waiting for: {totalMinutes} minutes. " +
+                    $"Resuming at local time: {resumeTime}");
                 await Task.Delay(iMillisecondsToWait);
             }
         }

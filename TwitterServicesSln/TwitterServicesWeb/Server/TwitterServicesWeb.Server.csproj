@@ -1,17 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<UserSecretsId>c6c434c5-169d-4022-9a92-3005cc5cc363</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.0-preview.8.20414.8" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.0-preview.8.20414.8" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Client\TwitterServicesWeb.Client.csproj" />
-    <ProjectReference Include="..\Shared\TwitterServicesWeb.Shared.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\PTI.TwitterServices\PTI.TwitterServices.csproj" />
+		<ProjectReference Include="..\Client\TwitterServicesWeb.Client.csproj" />
+		<ProjectReference Include="..\Shared\TwitterServicesWeb.Shared.csproj" />
+	</ItemGroup>
 
 
 </Project>
