@@ -6,17 +6,18 @@
         @foreach (var singleFollower in this.FollowersList)
         {
             <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-                <div class="card-header">@singleFollower.Username</div>
+                <div class="card-header">
+                    <a href="@singleFollower.ProfileUrl" target="_blank">@singleFollower.Username</a>
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">Reasons Found</h5>
                     <p class="card-text">
-                        <ul>
+                        <ul class="list-group">
                             @foreach (var singleReason in singleFollower.Reasons)
                             {
-                                <li class="list-group-item-secondary">@singleReason</li>
+                                <li>@singleReason</li>
                             }
                         </ul>
-
                     </p>
                 </div>
             </div>

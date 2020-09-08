@@ -9,7 +9,7 @@ using System.Linq;
 using PTI.TwitterServices.Configuration;
 using PTI.TwitterServices.Services;
 using Microsoft.Extensions.Logging;
-using TwitterServicesWeb.Server.BackgroundServices;
+using PTI.BackgroundServices;
 
 namespace TwitterServicesWeb.Server
 {
@@ -38,7 +38,7 @@ namespace TwitterServicesWeb.Server
             services.AddTransient<FakeFollowersTwitterService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddHostedService<BackgroundServices.TwitterBackgroundService>();
+            services.AddHostedService<TwitterBackgroundService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

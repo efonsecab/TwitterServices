@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using PTI.BackgroundServices.Helpers;
 using PTI.TwitterServices.Models;
-using TwitterServicesWeb.Server.Helpers;
 using TwitterServicesWeb.Shared;
 
 namespace TwitterServicesWeb.Server.Controllers

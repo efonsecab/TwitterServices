@@ -1,19 +1,20 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using PTI.BackgroundServices.Helpers;
 using PTI.TwitterServices.Configuration;
 using PTI.TwitterServices.Models;
 using PTI.TwitterServices.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using TwitterServicesWeb.Server.Helpers;
 using TwitterServicesWeb.Shared;
 
-namespace TwitterServicesWeb.Server.BackgroundServices
+namespace PTI.BackgroundServices
 {
-    public class TwitterBackgroundService: Microsoft.Extensions.Hosting.BackgroundService
+    public class TwitterBackgroundService : Microsoft.Extensions.Hosting.BackgroundService
     {
         private BaseTwitterServiceConfiguration BaseTwitterServiceConfiguration { get; }
         private FakeFollowersTwitterService FakeFollowersTwitterService { get; }
@@ -42,7 +43,8 @@ namespace TwitterServicesWeb.Server.BackgroundServices
                     lstAllPossibleFakeUsers.Add(new PossibleFakeUserModel()
                     {
                         Username = user.User.ScreenNameResponse,
-                        Reasons = user.PossibleFakeReasons.Select(p => p.ToString()).ToList()
+                        Reasons = user.PossibleFakeReasons.Select(p => p.ToString()).ToList(),
+                        ProfileUrl = $"https://www.twitter.com/{user.User.ScreenNameResponse}"
                     });
                     this.Logger?.LogInformation($"New users added to main list: Total users: {lstAllPossibleFakeUsers.Count()}");
                     this.MemoryCache.Set<List<PossibleFakeUserModel>>(Constants.PossibleFakeUsers, lstAllPossibleFakeUsers);
@@ -50,7 +52,7 @@ namespace TwitterServicesWeb.Server.BackgroundServices
                 await this.FakeFollowersTwitterService
                     .GetAllPossibleFakeFollowersForUsernameAsync(this.BaseTwitterServiceConfiguration.ScreenName,
                     onNewFakeUserFound)
-                    .ConfigureAwait(continueOnCapturedContext:true);
+                    .ConfigureAwait(continueOnCapturedContext: true);
             }
             catch (Exception ex)
             {

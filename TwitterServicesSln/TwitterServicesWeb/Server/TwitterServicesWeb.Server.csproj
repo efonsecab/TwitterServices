@@ -10,6 +10,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\PTI.BackgroundServices\PTI.BackgroundServices.csproj" />
 		<ProjectReference Include="..\..\PTI.TwitterServices\PTI.TwitterServices.csproj" />
 		<ProjectReference Include="..\Client\TwitterServicesWeb.Client.csproj" />
 		<ProjectReference Include="..\Shared\TwitterServicesWeb.Shared.csproj" />

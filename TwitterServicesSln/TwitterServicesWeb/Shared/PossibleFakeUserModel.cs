@@ -10,5 +10,6 @@ namespace TwitterServicesWeb.Shared
     {
         public string Username { get; set; }
         public List<string> Reasons { get; set; }
+        public string ProfileUrl { get; set; }
     }
 }
