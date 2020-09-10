@@ -10,6 +10,7 @@ using PTI.TwitterServices.Configuration;
 using PTI.TwitterServices.Services;
 using Microsoft.Extensions.Logging;
 using PTI.BackgroundServices;
+using PTI.BackgroundServices.SignalR;
 
 namespace TwitterServicesWeb.Server
 {
@@ -36,14 +37,24 @@ namespace TwitterServicesWeb.Server
             services.AddSingleton<BaseTwitterServiceConfiguration>(baseTwitterServiceConfiguration);
             services.AddTransient<BaseTwitterService>();
             services.AddTransient<FakeFollowersTwitterService>();
+            services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true;
+            });
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddResponseCompression(opts =>
+            {
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "application/octet-stream" });
+            });
             services.AddHostedService<TwitterBackgroundService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseResponseCompression();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -66,6 +77,7 @@ namespace TwitterServicesWeb.Server
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                endpoints.MapHub<PossibleFakeFollowersHub>("/possiblefakefollowershub");
                 endpoints.MapFallbackToFile("index.html");
             });
         }
